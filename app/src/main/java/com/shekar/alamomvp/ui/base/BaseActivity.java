@@ -1,4 +1,4 @@
-package com.shekar.alamomvp.activity;
+package com.shekar.alamomvp.ui.base;
 
 import android.app.Activity;
 import android.os.Bundle;

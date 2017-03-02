@@ -1,6 +1,6 @@
-package com.shekar.alamomvp.services;
+package com.shekar.alamomvp.data.services;
 
-import com.shekar.alamomvp.model.CategoryModel;
+import com.shekar.alamomvp.data.model.CategoryModel;
 import java.util.List;
 import retrofit.http.GET;
 import rx.Observable;

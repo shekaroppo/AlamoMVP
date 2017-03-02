@@ -1,7 +1,7 @@
-package com.shekar.alamomvp.datamanager;
+package com.shekar.alamomvp.data;
 
-import com.shekar.alamomvp.model.CategoryModel;
-import com.shekar.alamomvp.services.ApiService;
+import com.shekar.alamomvp.data.model.CategoryModel;
+import com.shekar.alamomvp.data.services.ApiService;
 import java.util.List;
 import rx.Observable;
 

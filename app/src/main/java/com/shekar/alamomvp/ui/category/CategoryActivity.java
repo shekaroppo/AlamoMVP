@@ -1,4 +1,4 @@
-package com.shekar.alamomvp.activity;
+package com.shekar.alamomvp.ui.category;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,17 +9,15 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.shekar.alamomvp.R;
-import com.shekar.alamomvp.adapter.CategoryAdapter;
-import com.shekar.alamomvp.model.CategoryModel;
-import com.shekar.alamomvp.presenter.CategoryPresenter;
-import com.shekar.alamomvp.view.MvpView;
+import com.shekar.alamomvp.data.model.CategoryModel;
+import com.shekar.alamomvp.ui.base.BaseActivity;
 import java.util.List;
 import javax.inject.Inject;
 
 /**
  * Created by Sekhar on 4/6/15.
  */
-public class CategoryActivity extends BaseActivity implements MvpView {
+public class CategoryActivity extends BaseActivity implements CategoryMvpView {
 
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     @Bind(R.id.loadingView)

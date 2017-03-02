@@ -29,4 +29,5 @@ task clean(type: Delete) {
 ext{
   // App dependencies
   supportLibraryVersion = '25.2.0'
+  timberVersion='4.3.1'
 }

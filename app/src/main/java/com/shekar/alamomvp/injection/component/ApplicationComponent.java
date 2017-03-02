@@ -1,6 +1,6 @@
 package com.shekar.alamomvp.injection.component;
 
-import com.shekar.alamomvp.datamanager.DataManager;
+import com.shekar.alamomvp.data.DataManager;
 import com.shekar.alamomvp.injection.module.AppModule;
 import com.shekar.alamomvp.injection.module.NetworkModule;
 import dagger.Component;

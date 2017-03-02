@@ -1,4 +1,4 @@
-package com.shekar.alamomvp.adapter;
+package com.shekar.alamomvp.ui.category;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.shekar.alamomvp.R;
-import com.shekar.alamomvp.model.CategoryModel;
+import com.shekar.alamomvp.data.model.CategoryModel;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.shekar.alamomvp.injection.module;
 
-import com.shekar.alamomvp.datamanager.DataManager;
-import com.shekar.alamomvp.services.ApiService;
+import com.shekar.alamomvp.data.DataManager;
+import com.shekar.alamomvp.data.services.ApiService;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;

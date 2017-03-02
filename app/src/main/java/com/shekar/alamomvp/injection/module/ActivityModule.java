@@ -1,10 +1,9 @@
 package com.shekar.alamomvp.injection.module;
 
-import com.shekar.alamomvp.adapter.CategoryAdapter;
-import com.shekar.alamomvp.datamanager.DataManager;
+import com.shekar.alamomvp.data.DataManager;
 import com.shekar.alamomvp.injection.scope.ActivityScope;
-import com.shekar.alamomvp.presenter.CategoryPresenter;
-import com.shekar.alamomvp.presenter.CategoryPresenterImpl;
+import com.shekar.alamomvp.ui.category.CategoryAdapter;
+import com.shekar.alamomvp.ui.category.CategoryPresenter;
 import dagger.Module;
 import dagger.Provides;
 
@@ -23,6 +22,6 @@ public class ActivityModule {
     @Provides
     @ActivityScope
     public CategoryPresenter provideCategoryPresenter(DataManager dataManager) {
-        return new CategoryPresenterImpl(dataManager);
+        return new CategoryPresenter(dataManager);
     }
 }

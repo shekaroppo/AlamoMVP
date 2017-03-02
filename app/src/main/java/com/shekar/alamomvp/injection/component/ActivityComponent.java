@@ -1,7 +1,7 @@
 package com.shekar.alamomvp.injection.component;
 
-import com.shekar.alamomvp.activity.BaseActivity;
-import com.shekar.alamomvp.activity.CategoryActivity;
+import com.shekar.alamomvp.ui.base.BaseActivity;
+import com.shekar.alamomvp.ui.category.CategoryActivity;
 import com.shekar.alamomvp.injection.module.ActivityModule;
 import com.shekar.alamomvp.injection.scope.ActivityScope;
 import dagger.Component;

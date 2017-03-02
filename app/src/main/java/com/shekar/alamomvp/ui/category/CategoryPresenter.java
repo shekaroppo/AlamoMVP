@@ -1,9 +1,9 @@
-package com.shekar.alamomvp.presenter;
+package com.shekar.alamomvp.ui.category;
 
 import android.util.Log;
-import com.shekar.alamomvp.datamanager.DataManager;
-import com.shekar.alamomvp.model.CategoryModel;
-import com.shekar.alamomvp.view.MvpView;
+import com.shekar.alamomvp.data.DataManager;
+import com.shekar.alamomvp.data.model.CategoryModel;
+import com.shekar.alamomvp.ui.base.BasePresenter;
 import java.util.List;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -12,28 +12,26 @@ import rx.subscriptions.CompositeSubscription;
 /**
  * Created by Sekhar on 4/6/15.
  */
-public class CategoryPresenterImpl implements CategoryPresenter {
+public class CategoryPresenter extends BasePresenter<CategoryMvpView> {
 
-    private MvpView mMvpView;
+    private CategoryMvpView mCategoryMvpView;
     private CompositeSubscription compositeSubscription;
     private DataManager mDataManager;
 
-    public CategoryPresenterImpl(DataManager dataManager) {
+    public CategoryPresenter(DataManager dataManager) {
         mDataManager = dataManager;
     }
 
     @Override
-    public void attachView(MvpView mvpView) {
-        mMvpView = mvpView;
+    public void attachView(CategoryMvpView categoryMvpView) {
+        mCategoryMvpView = categoryMvpView;
     }
 
-
-    @Override
     public void loadData() {
         if (compositeSubscription == null) {
             compositeSubscription = new CompositeSubscription();
         }
-        mMvpView.showProgress();
+        mCategoryMvpView.showProgress();
 
         compositeSubscription.add(mDataManager.getCategorys().observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<List<CategoryModel>>() {
             @Override
@@ -42,14 +40,14 @@ public class CategoryPresenterImpl implements CategoryPresenter {
 
             @Override
             public void onError(Throwable e) {
-                mMvpView.hideProgress();
-                mMvpView.showError();
+                mCategoryMvpView.hideProgress();
+                mCategoryMvpView.showError();
             }
 
             @Override
             public void onNext(List<CategoryModel> categoryModels) {
-                mMvpView.hideProgress();
-                mMvpView.showContent(categoryModels);
+                mCategoryMvpView.hideProgress();
+                mCategoryMvpView.showContent(categoryModels);
             }
         }));
     }
@@ -64,6 +62,6 @@ public class CategoryPresenterImpl implements CategoryPresenter {
 
     @Override
     public void detachView() {
-        mMvpView = null;
+        mCategoryMvpView = null;
     }
 }

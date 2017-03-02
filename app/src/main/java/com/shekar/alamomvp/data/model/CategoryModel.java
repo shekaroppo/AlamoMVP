@@ -1,4 +1,4 @@
-package com.shekar.alamomvp.model;
+package com.shekar.alamomvp.data.model;
 
 public class CategoryModel {
     private String api_url;
