@@ -7,18 +7,13 @@ import com.shekar.alamomvp.injection.module.AppModule;
 
 public class MVPApplication extends Application {
 
-    private ApplicationComponent component;
+  private ApplicationComponent component;
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
+  public ApplicationComponent getComponent() {
+    if (component == null) {
+      component = DaggerApplicationComponent.builder().appModule(new AppModule(this)).build();
     }
-
-    public ApplicationComponent getComponent() {
-        if (component == null) {
-            component = DaggerApplicationComponent.builder().appModule(new AppModule(this)).build();
-        }
-        return component;
-    }
+    return component;
+  }
 }
 
