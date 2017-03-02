@@ -9,6 +9,10 @@ package com.shekar.alamomvp.ui.base;
  * that then usually will be implemented by an Activity or Fragment.
  */
 public interface MvpView {
+  public void showProgress();
 
+  public void hideProgress();
+
+  public void showError();
 }
 

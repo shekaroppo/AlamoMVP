@@ -1,9 +1,8 @@
 package com.shekar.alamomvp.injection.component;
 
-import com.shekar.alamomvp.ui.base.BaseActivity;
-import com.shekar.alamomvp.ui.category.CategoryActivity;
 import com.shekar.alamomvp.injection.module.ActivityModule;
 import com.shekar.alamomvp.injection.scope.ActivityScope;
+import com.shekar.alamomvp.ui.category.CategoryActivity;
 import dagger.Component;
 
 /**
@@ -18,7 +17,5 @@ import dagger.Component;
                 ActivityModule.class
         })
 public interface ActivityComponent {
-    void inject(BaseActivity baseActivity);
-
     void inject(CategoryActivity categoryActivity);
 }

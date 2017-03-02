@@ -10,6 +10,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.shekar.alamomvp.R;
 import com.shekar.alamomvp.data.model.CategoryModel;
+import com.shekar.alamomvp.injection.component.ActivityComponent;
 import com.shekar.alamomvp.ui.base.BaseActivity;
 import java.util.List;
 import javax.inject.Inject;
@@ -17,67 +18,58 @@ import javax.inject.Inject;
 /**
  * Created by Sekhar on 4/6/15.
  */
-public class CategoryActivity extends BaseActivity implements CategoryMvpView {
+public class CategoryActivity extends BaseActivity<CategoryPresenter> implements CategoryMvpView {
 
-    @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
-    @Bind(R.id.loadingView)
-    ProgressBar mLoadingView;
-    @Bind(R.id.errorView)
-    TextView mErrorView;
-    @Inject CategoryPresenter mPresenter;
-    @Inject CategoryAdapter mAdapter;
+  @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
+  @Bind(R.id.loadingView) ProgressBar mLoadingView;
+  @Bind(R.id.errorView) TextView mErrorView;
+  @Inject CategoryAdapter mAdapter;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getComponent().inject(this);
-        setContentView(R.layout.activity_category);
-        mPresenter.attachView(this);
-        ButterKnife.bind(this);
-        setUI();
-        loadData();
-    }
+  @Override protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_category);
+    ButterKnife.bind(this);
+    setUI();
+    loadData();
+  }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+  @Override protected void onComponentCreated(ActivityComponent component) {
+    component.inject(this);
+  }
 
-    }
+  @Override protected void onResume() {
+    super.onResume();
+  }
 
-    private void loadData() {
-        mPresenter.loadData();
-    }
+  private void loadData() {
+    mPresenter.loadData();
+  }
 
-    private void setUI() {
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(mAdapter);
-    }
+  private void setUI() {
+    mRecyclerView.setHasFixedSize(true);
+    mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    mRecyclerView.setAdapter(mAdapter);
+  }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mPresenter.detachView();
-        mPresenter.unsubscribeFromDataStore();
-    }
+  @Override protected void onDestroy() {
+    super.onDestroy();
+    mPresenter.unsubscribeFromDataStore();
+  }
 
-    @Override
-    public void showProgress() {
-        mLoadingView.setVisibility(View.VISIBLE);
-    }
+  @Override public void showContent(List<CategoryModel> data) {
+    mAdapter.setData(data);
+  }
 
-    @Override
-    public void hideProgress() {
-        mLoadingView.setVisibility(View.GONE);
-    }
+  @Override public void showProgress() {
+    mLoadingView.setVisibility(View.VISIBLE);
+  }
 
-    @Override
-    public void showContent(List<CategoryModel> data) {
-        mAdapter.setData(data);
-    }
+  @Override public void hideProgress() {
+    mLoadingView.setVisibility(View.GONE);
+  }
 
-    @Override
-    public void showError() {
-        mErrorView.setVisibility(View.VISIBLE);
-    }
+  @Override public void showError() {
+    mErrorView.setVisibility(View.VISIBLE);
+  }
+
 }
