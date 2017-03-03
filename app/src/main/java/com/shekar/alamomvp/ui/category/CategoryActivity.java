@@ -1,6 +1,8 @@
 package com.shekar.alamomvp.ui.category;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 import com.shekar.alamomvp.R;
 import com.shekar.alamomvp.data.model.CategoryModel;
 import com.shekar.alamomvp.databinding.ActivityCategoryBinding;
@@ -12,7 +14,7 @@ import javax.inject.Inject;
 /**
  * Created by Sekhar on 4/6/15.
  */
-public class CategoryActivity extends BaseActivity<ActivityCategoryBinding,CategoryViewModel>
+public class CategoryActivity extends BaseActivity<ActivityCategoryBinding, CategoryViewModel>
     implements CategoryView {
 
   @Inject CategoryAdapter mAdapter;
@@ -36,9 +38,9 @@ public class CategoryActivity extends BaseActivity<ActivityCategoryBinding,Categ
   }
 
   private void setUI() {
-    //mRecyclerView.setHasFixedSize(true);
-    //mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-    //mRecyclerView.setAdapter(mAdapter);
+    binding.recyclerView.setHasFixedSize(true);
+    binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    binding.recyclerView.setAdapter(mAdapter);
   }
 
   @Override protected void onDestroy() {
@@ -55,15 +57,14 @@ public class CategoryActivity extends BaseActivity<ActivityCategoryBinding,Categ
   }
 
   @Override public void showProgress() {
-    //mLoadingView.setVisibility(View.VISIBLE);
+    binding.progressBinding.loadingView.setVisibility(View.VISIBLE);
   }
 
   @Override public void hideProgress() {
-    //mLoadingView.setVisibility(View.GONE);
+    binding.progressBinding.loadingView.setVisibility(View.GONE);
   }
 
   @Override public void showError() {
-    //mErrorView.setVisibility(View.VISIBLE);
+    binding.errorBinding.setVisibility(View.VISIBLE);
   }
-
 }

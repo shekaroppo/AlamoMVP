@@ -8,6 +8,7 @@ import java.util.List;
 import javax.inject.Inject;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -29,6 +30,7 @@ public class CategoryViewModel extends BaseViewModel<CategoryView> {
     }
     getMvvmView().showProgress();
     compositeSubscription.add(mDataManager.getCategorys()
+        .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(new Subscriber<List<CategoryModel>>() {
           @Override public void onCompleted() {
