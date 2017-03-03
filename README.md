@@ -1,3 +1,3 @@
 - Installation
   - Integrate Kotlin
-  - Integrate MVP follow stremio
+  - Integrate MVP devhelpdirect mvp example
