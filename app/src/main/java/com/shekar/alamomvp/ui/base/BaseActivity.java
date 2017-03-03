@@ -1,6 +1,9 @@
 package com.shekar.alamomvp.ui.base;
 
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import com.shekar.alamomvp.MVPApplication;
 import com.shekar.alamomvp.injection.component.ActivityComponent;
@@ -8,20 +11,32 @@ import com.shekar.alamomvp.injection.component.DaggerActivityComponent;
 import com.shekar.alamomvp.injection.module.ActivityModule;
 import javax.inject.Inject;
 
-public abstract class BaseActivity<B extends Presenter> extends AppCompatActivity {
+public abstract class BaseActivity<B extends ViewDataBinding, V extends MvvmViewModel> extends AppCompatActivity {
   protected ActivityComponent component;
 
-  @Inject protected B mPresenter;
+  @Inject protected V viewModel;
+
+  protected B binding;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    // Inject dependencies
     onComponentCreated(getComponent());
-    mPresenter.attachView((MvpView) this);
+    // Bind the view and bind the viewModel to layout
+    bindContentView(layoutId());
+  }
+
+    public void bindContentView(int layoutId) {
+    binding = DataBindingUtil.setContentView(this, layoutId);
+
+    viewModel.attachView((MvvmView) this);
+
+     //binding.setVariable(BR.viewModel, viewModel);
   }
 
   @Override protected void onDestroy() {
     super.onDestroy();
-    mPresenter.detachView();
+    viewModel.detachView();
   }
 
   public ActivityComponent getComponent() {
@@ -33,5 +48,6 @@ public abstract class BaseActivity<B extends Presenter> extends AppCompatActivit
     }
     return component;
   }
+  @LayoutRes protected abstract int layoutId();
   protected abstract void onComponentCreated(ActivityComponent component);
 }
