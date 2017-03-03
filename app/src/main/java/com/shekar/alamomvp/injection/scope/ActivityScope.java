@@ -3,7 +3,7 @@ package com.shekar.alamomvp.injection.scope;
 import javax.inject.Scope;
 
 /**
- * Created by Shekar on 7/6/15.
+ * Created by Shekar on 3/3/17.
  */
 
 @Scope

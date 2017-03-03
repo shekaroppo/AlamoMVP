@@ -1,44 +1,46 @@
 package com.shekar.alamomvp.injection.module;
 
+import com.shekar.alamomvp.BuildConfig;
 import com.shekar.alamomvp.data.DataManager;
 import com.shekar.alamomvp.data.services.ApiService;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
-import retrofit.Endpoint;
-import retrofit.Endpoints;
-import retrofit.RestAdapter;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by Shekar on 7/4/15.
+ * Created by Shekar on 3/3/17.
  */
 
-@Module
-public class NetworkModule {
+@Module public class NetworkModule {
 
-    @Provides
-    @Singleton
-    Endpoint provideEndpoint() {
-        return Endpoints.newFixedEndpoint("http://api-v2.hearthis.at");
+  @Provides @Singleton OkHttpClient provideOkHttpClient() {
+    OkHttpClient.Builder httpBuilder = new OkHttpClient.Builder();
+    if (BuildConfig.DEBUG) {
+      HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+      httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+      httpBuilder.interceptors().add(httpLoggingInterceptor);
     }
+    return httpBuilder.build();
+  }
 
-    @Provides
-    @Singleton
-    RestAdapter provideRestAdapter(Endpoint endpoint) {
-        return new RestAdapter.Builder()
-                .setEndpoint(endpoint)
-                .setLogLevel(RestAdapter.LogLevel.FULL)
-                .build();
-    }
+  @Provides @Singleton Retrofit provideRestAdapter(OkHttpClient okHttpClient) {
+    return new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+        .client(okHttpClient)
+        .build();
+  }
 
-    @Provides
-    @Singleton
-    ApiService provideCategoryAPI(RestAdapter restAdapter) {
-        return restAdapter.create(ApiService.class);
-    }
+  @Provides @Singleton ApiService provideApiService(Retrofit restAdapter) {
+    return restAdapter.create(ApiService.class);
+  }
 
-    @Provides
-    @Singleton DataManager getDataManager(ApiService apiService) {
-        return new DataManager(apiService);
-    }
+  @Provides @Singleton DataManager getDataManager(ApiService apiService) {
+    return new DataManager(apiService);
+  }
 }
