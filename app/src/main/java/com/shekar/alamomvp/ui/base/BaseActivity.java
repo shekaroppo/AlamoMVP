@@ -9,9 +9,12 @@ import com.shekar.alamomvp.MVPApplication;
 import com.shekar.alamomvp.injection.component.ActivityComponent;
 import com.shekar.alamomvp.injection.component.DaggerActivityComponent;
 import com.shekar.alamomvp.injection.module.ActivityModule;
+import com.shekar.alamomvp.BR;
 import javax.inject.Inject;
 
-public abstract class BaseActivity<B extends ViewDataBinding, V extends MvvmViewModel> extends AppCompatActivity {
+
+public abstract class BaseActivity<B extends ViewDataBinding, V extends MvvmViewModel>
+    extends AppCompatActivity {
   protected ActivityComponent component;
 
   @Inject protected V viewModel;
@@ -26,12 +29,10 @@ public abstract class BaseActivity<B extends ViewDataBinding, V extends MvvmView
     bindContentView(layoutId());
   }
 
-    public void bindContentView(int layoutId) {
+  public void bindContentView(int layoutId) {
     binding = DataBindingUtil.setContentView(this, layoutId);
-
     viewModel.attachView((MvvmView) this);
-
-     //binding.setVariable(BR.viewModel, viewModel);
+    binding.setVariable(BR.viewModel, viewModel);
   }
 
   @Override protected void onDestroy() {
@@ -48,6 +49,8 @@ public abstract class BaseActivity<B extends ViewDataBinding, V extends MvvmView
     }
     return component;
   }
+
   @LayoutRes protected abstract int layoutId();
+
   protected abstract void onComponentCreated(ActivityComponent component);
 }

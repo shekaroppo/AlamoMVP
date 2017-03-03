@@ -1,6 +1,6 @@
 package com.shekar.alamomvp.ui.category;
 
-import android.util.Log;
+import android.databinding.ObservableBoolean;
 import com.shekar.alamomvp.data.DataManager;
 import com.shekar.alamomvp.data.model.CategoryModel;
 import com.shekar.alamomvp.ui.base.BaseViewModel;
@@ -10,6 +10,7 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
+import timber.log.Timber;
 
 /**
  * Created by Shekar on 3/3/17.
@@ -18,7 +19,7 @@ import rx.subscriptions.CompositeSubscription;
 public class CategoryViewModel extends BaseViewModel<CategoryView> {
   private CompositeSubscription compositeSubscription;
   private DataManager mDataManager;
-
+  private final ObservableBoolean loaded = new ObservableBoolean();
   @Inject
   public CategoryViewModel(DataManager dataManager) {
     mDataManager = dataManager;
@@ -28,7 +29,7 @@ public class CategoryViewModel extends BaseViewModel<CategoryView> {
     if (compositeSubscription == null) {
       compositeSubscription = new CompositeSubscription();
     }
-    getMvvmView().showProgress();
+    loaded.set(false);
     compositeSubscription.add(mDataManager.getCategorys()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -37,19 +38,21 @@ public class CategoryViewModel extends BaseViewModel<CategoryView> {
           }
 
           @Override public void onError(Throwable e) {
-            getMvvmView().hideProgress();
-            getMvvmView().showError();
+            loaded.set(true);
+            //getMvvmView().showError();
           }
 
           @Override public void onNext(List<CategoryModel> categoryModels) {
-            getMvvmView().hideProgress();
-            getMvvmView().showContent(categoryModels);
+            loaded.set(true);
+            //getMvvmView().showContent(categoryModels);
           }
         }));
   }
-
+  public ObservableBoolean isLoaded() {
+    return loaded;
+  }
   @Override public void unsubscribeFromDataStore() {
-    Log.d("TAG", "unsubscribeFromDataStore ");
+    Timber.d("unsubscribeFromDataStore(): ");
     compositeSubscription.unsubscribe();
     compositeSubscription.clear();
     compositeSubscription = null;
