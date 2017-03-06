@@ -17,11 +17,11 @@ import timber.log.Timber;
  */
 
 public class CategoryViewModel extends BaseViewModel<CategoryView> {
+  public final ObservableBoolean loaded = new ObservableBoolean();
   private CompositeSubscription compositeSubscription;
   private DataManager mDataManager;
-  private final ObservableBoolean loaded = new ObservableBoolean();
-  @Inject
-  public CategoryViewModel(DataManager dataManager) {
+
+  @Inject public CategoryViewModel(DataManager dataManager) {
     mDataManager = dataManager;
   }
 
@@ -48,9 +48,11 @@ public class CategoryViewModel extends BaseViewModel<CategoryView> {
           }
         }));
   }
+
   public ObservableBoolean isLoaded() {
     return loaded;
   }
+
   @Override public void unsubscribeFromDataStore() {
     Timber.d("unsubscribeFromDataStore(): ");
     compositeSubscription.unsubscribe();

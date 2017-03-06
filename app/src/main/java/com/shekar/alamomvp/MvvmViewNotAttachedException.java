@@ -1,4 +1,4 @@
-package com.shekar.alamomvp.ui.base;
+package com.shekar.alamomvp;
 
 public class MvvmViewNotAttachedException extends RuntimeException {
     public MvvmViewNotAttachedException() {

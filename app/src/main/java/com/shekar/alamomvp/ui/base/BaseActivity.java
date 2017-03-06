@@ -5,11 +5,11 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
+import com.shekar.alamomvp.BR;
 import com.shekar.alamomvp.MVPApplication;
 import com.shekar.alamomvp.injection.component.ActivityComponent;
 import com.shekar.alamomvp.injection.component.DaggerActivityComponent;
 import com.shekar.alamomvp.injection.module.ActivityModule;
-import com.shekar.alamomvp.BR;
 import javax.inject.Inject;
 
 

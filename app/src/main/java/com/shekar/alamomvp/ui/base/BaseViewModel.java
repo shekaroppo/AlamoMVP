@@ -3,10 +3,10 @@ package com.shekar.alamomvp.ui.base;
 import rx.subscriptions.CompositeSubscription;
 import timber.log.Timber;
 
-public abstract class BaseViewModel<T extends MvvmView>  implements MvvmViewModel<T> {
+public abstract class BaseViewModel<T extends MvvmView> implements MvvmViewModel<T> {
 
-  private T mvvmView;
   protected CompositeSubscription compositeSubscription;
+  private T mvvmView;
 
   @Override
   public void attachView(T mvvmView) {

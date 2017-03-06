@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     >
   <data>
+    <import type="android.view.View"/>
     <variable
         name="viewModel"
         type="com.shekar.alamomvp.ui.category.CategoryViewModel"
@@ -11,13 +12,19 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       >
-    <include
-        android:id="@+id/progress_binding"
-        layout="@layout/common_loading_view"/>
+    <ProgressBar
+        android:id="@+id/loadingView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:visibility="@{viewModel.loaded}"
+        />
 
     <include
+        layout="@layout/common_error_view"
         android:id="@+id/error_binding"
-        layout="@layout/common_error_view"/>
+        />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
