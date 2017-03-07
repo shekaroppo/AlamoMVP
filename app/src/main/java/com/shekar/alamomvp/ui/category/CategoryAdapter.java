@@ -1,12 +1,13 @@
 package com.shekar.alamomvp.ui.category;
 
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import com.shekar.alamomvp.R;
 import com.shekar.alamomvp.data.model.CategoryModel;
+import com.shekar.alamomvp.databinding.ExampleListItemBinding;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.mTextView.setText(mData.get(position).getName());
+      holder.binder.setViewModel(mData.get(position));
+      holder.binder.executePendingBindings();
     }
 
     @Override
@@ -42,11 +44,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView mTextView;
+      private final ExampleListItemBinding binder;
 
         public ViewHolder(View v) {
             super(v);
-            mTextView = (TextView) v;
+          binder = DataBindingUtil.bind(v);
         }
     }
 }

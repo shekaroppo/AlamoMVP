@@ -1,9 +1,11 @@
 package com.shekar.alamomvp.ui.base;
 
+import android.databinding.BaseObservable;
 import rx.subscriptions.CompositeSubscription;
 import timber.log.Timber;
 
-public abstract class BaseViewModel<T extends MvvmView> implements MvvmViewModel<T> {
+public abstract class BaseViewModel<T extends MvvmView> extends BaseObservable
+    implements MvvmViewModel<T> {
 
   protected CompositeSubscription compositeSubscription;
   private T mvvmView;
