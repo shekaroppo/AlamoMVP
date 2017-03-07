@@ -25,6 +25,7 @@
     <include
         layout="@layout/common_error_view"
         android:id="@+id/error_binding"
+        bind:viewModel="@{viewModel}"
         />
 
     <android.support.v7.widget.RecyclerView

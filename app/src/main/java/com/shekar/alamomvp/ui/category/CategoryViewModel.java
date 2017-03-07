@@ -43,11 +43,11 @@ public class CategoryViewModel extends BaseViewModel<CategoryView> {
           @Override public void onError(Throwable e) {
             showProgress.set(false);
             showError.set(true);
-            //getMvvmView().showError();
           }
 
           @Override public void onNext(List<CategoryModel> categoryModels) {
             showProgress.set(false);
+            showError.set(false);
             categoryModelList.addAll(categoryModels);
           }
         }));
