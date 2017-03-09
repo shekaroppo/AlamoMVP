@@ -12,12 +12,11 @@ import com.shekar.alamomvp.injection.component.DaggerActivityComponent;
 import com.shekar.alamomvp.injection.module.ActivityModule;
 import javax.inject.Inject;
 
-
-public abstract class BaseActivity<B extends ViewDataBinding, V extends MvvmViewModel>
+public abstract class BaseActivity<B extends ViewDataBinding, V extends MvvmView, VM extends MvvmViewModel>
     extends AppCompatActivity {
   protected ActivityComponent component;
 
-  @Inject protected V viewModel;
+  @Inject protected VM viewModel;
 
   protected B binding;
 

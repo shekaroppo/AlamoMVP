@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'kotlin-kapt'
 
 android {
   compileSdkVersion rootProject.ext.compileSdkVersion
@@ -43,7 +43,6 @@ dependencies {
   //Dagger2
   compile "com.google.dagger:dagger:${dagger2Version}"
   kapt "com.google.dagger:dagger-compiler:${dagger2Version}"
-  provided 'org.glassfish:javax.annotation:10.0-b28'
 
   //Retrofit2
   compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
@@ -65,7 +64,7 @@ dependencies {
   })
 
   //Kotlin
-  compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+  compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
   testCompile 'junit:junit:4.12'
 
